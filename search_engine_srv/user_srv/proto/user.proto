@@ -1,4 +1,54 @@
-syntax = "proto3"
+syntax = "proto3";
 import "google/protobuf/empty.proto";
-option go_package = ".;proto";
+option go_package = "user";
 
+service User{
+    rpc GetUserList(UserInfoFilter) returns (UserListResponse);               // 获取用户列表
+    rpc GetUserById(IdRequest) returns (UserInfoResponse);              // 通过Id获取用户
+    rpc CreateUser(CreateUserInfo) returns(UserInfoResponse);           // 创建用户
+    rpc UpdateUser(UpdateUserInfo) returns(google.protobuf.Empty);      // 更新用户
+    rpc CheckPassWord(PasswordInfo) returns(CheckResponse);             // 检查密码
+}
+
+message UserInfoFilter{
+    uint32 pn = 1;
+    uint32 pSize = 2;
+}
+
+message UserListResponse{
+    int32 id = 1;
+    string nickName =2;
+    string mobile = 3;
+}
+
+message IdRequest{
+  int32 id = 1;
+}
+
+message UserInfoResponse{
+  int32 id = 1;
+  string password = 2;
+  string mobile = 3;
+  string nickName = 4;
+}
+
+message CreateUserInfo{
+  string nickName = 1;
+  string password = 2;
+  string mobile =3;
+}
+
+message UpdateUserInfo{
+  int32 id = 1;
+  string nickName = 2;
+  string mobile = 3;
+}
+
+message PasswordInfo{
+  string password = 1;
+  string encrytedPassword = 2;
+}
+
+message CheckResponse{
+  bool success = 1;
+}

@@ -1,10 +1,8 @@
 package model
-import (
-	""
-)
+
 type User struct {
-    UserID         int64  `gorm:"primarykey"`
-    UserName       string `gorm:"unique"`
-    NickName       string
-    PasswordDigest string
+	BaseModel
+	Mobile   string `gorm:"index:idx_modile;unique;type:varchar(11)"`
+	NickName string `gorm:"type:varchar(20)"`
+	Password string `gorm:"type:varchar(100);not null"`
 }
